@@ -20,19 +20,21 @@ class MicroInsurance(StaticLiveServerTestCase):
 		self.browser.get(self.live_server_url)
 
 		#He notice the title of the site is for microinsurance
-		self.assertIn('Creative - Start Bootstrap Theme', self.browser.title)
+		self.assertIn('Vance MicroInsurance', self.browser.title)
 
 		#He notice the login button at the upper-right side of the form
 		login_button = self.browser.find_element_by_id('login')
 		login_button.click()
 
+		#He type in the username
 		username_field = self.browser.find_element_by_name('username')
 		username_field.send_keys('admin')
-
+		#He type in the username
 		password_field = self.browser.find_element_by_name('password')
 		password_field.send_keys('admin')
 		password_field.send_keys(Keys.RETURN)
 
+		#He sees the Vance Microinsurance in the page
 		body = self.browser.find_element_by_tag_name('body')
 		self.assertIn('Vance MicroInsurance', body.text)
 
@@ -53,3 +55,36 @@ class MicroInsurance(StaticLiveServerTestCase):
 
 		button_save = self.browser.find_element_by_name('_save')
 		button_save.click()
+
+	def test_insert__into_insurance_types(self):
+
+		self.browser.get(self.live_server_url)
+
+		#He notice the title of the site is for microinsurance
+		self.assertIn('Vance MicroInsurance', self.browser.title)
+
+		#He notice the login button at the upper-right side of the form
+		login_button = self.browser.find_element_by_id('login')
+		login_button.click()
+
+		#He type in the username
+		username_field = self.browser.find_element_by_name('username')
+		username_field.send_keys('admin')
+		#He type in the username
+		password_field = self.browser.find_element_by_name('password')
+		password_field.send_keys('admin')
+		password_field.send_keys(Keys.RETURN)
+
+		#He sees the Vance Microinsurance in the page
+		body = self.browser.find_element_by_tag_name('body')
+		self.assertIn('Vance MicroInsurance', body.text)
+		
+		#He sees the discount button and click it
+		discount_button = self.browser.find_element_by_link_text('Discounts')
+		discount_button.click()
+		body = self.browser.find_element_by_tag_name('body')
+		self.assertIn('0 discount', body.text)
+
+		#He click the add discount button to create new discounts
+		add_discount = self.browser.find_element_by_link_text('Add discount')
+		add_discount.click()
