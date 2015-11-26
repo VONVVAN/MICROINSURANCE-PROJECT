@@ -1,0 +1,42 @@
+[
+{
+  "fields": {
+    "password": "pbkdf2_sha256$20000$567BvpiVlHsP$FCeGMLZO5Y/nViKHw7QBLzg8K5/f8ZsyhainImbSkys=",
+    "is_staff": true,
+    "first_name": "Bonvivant",
+    "is_active": true,
+    "groups": [],
+    "last_login": "2015-11-26T08:42:02.813Z",
+    "is_superuser": true,
+    "email": "simplevance@gmail.com",
+    "date_joined": "2015-11-24T08:41:31Z",
+    "username": "admin",
+    "last_name": "Sentoy",
+    "user_permissions": []
+  },
+  "pk": 1,
+  "model": "auth.user"
+},
+{
+  "fields": {
+    "password": "pbkdf2_sha256$20000$5AdYjqKEuzgg$SzHT59Zg+4uQdSHKynSaaJvi2tlq8aW5t9pcyY3xTxc=",
+    "is_staff": true,
+    "first_name": "bon",
+    "is_active": true,
+    "groups": [
+      1
+    ],
+    "last_login": "2015-11-26T04:52:03.051Z",
+    "is_superuser": false,
+    "email": "example_sentoy@yahoo.com",
+    "date_joined": "2015-11-25T12:56:06Z",
+    "username": "vance",
+    "last_name": "sen",
+    "user_permissions": [
+      25
+    ]
+  },
+  "pk": 2,
+  "model": "auth.user"
+}
+]
