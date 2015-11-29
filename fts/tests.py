@@ -44,7 +44,7 @@ class MicroInsurance(StaticLiveServerTestCase):
 		branch_button.click()
 
 		body = self.browser.find_element_by_tag_name('body')
-		self.assertIn('0 branch', body.text)
+		self.assertIn('branch', body.text)
 
 		add_branch = self.browser.find_element_by_link_text('Add branch')
 		add_branch.click()
@@ -58,29 +58,30 @@ class MicroInsurance(StaticLiveServerTestCase):
 		button_save = self.browser.find_element_by_name('_save')
 		button_save.click()
 
-	def test_insert__into_insurance_types(self):
-
-		self.can_access_admin_site()
-		#He sees the discount button and click it
-		discount_button = self.browser.find_element_by_link_text('Discounts')
-		discount_button.click()
-		body = self.browser.find_element_by_tag_name('body')
-		self.assertIn('0 discount', body.text)
-
-		#He click the add discount button to create new discounts
-		add_discount = self.browser.find_element_by_link_text('Add discount')
-		add_discount.click()
-
 	def test_can_insert_insurance_type(self):
 		self.can_access_admin_site()
-		insurance_type = self.browser.find_element_by_link_text('Insurance types')
+		insurance_type = self.browser.find_element_by_link_text('Microinsurance types')
 		insurance_type.click()
 
-		add_insurance_type = self.browser.find_element_by_link_text('Add insurance type')
+		add_insurance_type = self.browser.find_element_by_link_text('Add microinsurance type')
 		add_insurance_type.click()
 
-		insurance_add_type = self.browser.find_element_by_name('Insurance_Type_Name')
+		insurance_add_type = self.browser.find_element_by_name('Microinsurance_Type_Name')
 		insurance_add_type.send_keys('Fire Accident')
 
 		button_save = self.browser.find_element_by_name('_save')
+		button_save.click()
+
+	def test_can_insert_user_type(self):
+		self.can_access_admin_site()
+		usertype_button = self.browser.find_element_by_link_text('User types')
+		usertype_button.click()
+
+		add_user_type = self.browser.find_element_by_link_text('Add user type')
+		add_user_type.click()
+
+		user_type_name = self.browser.find_element_by_name('User_Type_Name')
+		user_type_name.send_keys('Branch Manager')
+
+		button_save = self.browser.find_element_by_name('_save')	
 		button_save.click()

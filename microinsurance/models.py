@@ -1,58 +1,76 @@
 from django.db import models
 import datetime
+from django.contrib.auth.models import User
+
+status_choices = (
+	('A', 'Active'),
+	('I', 'Inactive'),
+)
+
 
 class Branch(models.Model):
 
 	branch_name = models.CharField(
-		max_length=225, primary_key = True,
+		max_length=100, primary_key = True,
 	)
+	date_created = models.CharField(default = datetime.datetime.now, max_length = 26)
+	status = models.CharField(max_length=7, choices = status_choices, default='Active')
 
 	class Meta:
-		verbose_name_plural = "branches"
+		verbose_name_plural = "Branches"
 
 	def __str__(self):
 		return self.branch_name
 
-
 class UnderWriter(models.Model):
 	
 	underwriter_name = models.CharField(
-		max_length = 225,
+		max_length = 100,
 	)
 	underwriter_address = models.TextField()
 	
 	underwriter_contact_person = models.CharField(
-		max_length = 225,
+		max_length = 100,
 	)
 	underwriter_contact_no = models.CharField(
-		max_length = 225,
+		max_length = 11,
 	)
+	date_created = models.CharField(default = datetime.datetime.now, max_length = 26)
+	status = models.CharField(max_length=7, choices = status_choices, default='Active')
 
 	def __str__(self):
 		return self.underwriter_name
 
-class InsuranceType(models.Model):
+class MicroinsuranceType(models.Model):
 
-	Insurance_Type_Name = models.CharField(
-		max_length = 225,
+	Microinsurance_Type_Name = models.CharField(
+		max_length = 100,
 	)
+	date_created = models.CharField(default = datetime.datetime.now, max_length = 26)
+	status = models.CharField(max_length=7, choices = status_choices, default='Active')
 
 	def __str__(self):
-		return self.Insurance_Type_Name
+		return self.Microinsurance_Type_Name
 
-class Insurance(models.Model):
+class MicroinsuranceOffered(models.Model):
 
-	Insurance_Name = models.CharField(
-		max_length = 225,
+	Microinsurance_Code = models.CharField(
+		max_length = 10,
+	)
+	Microinsurance_Name = models.CharField(
+		max_length = 100,
+	)
+	Microinsurance_Description = models.TextField(
+		max_length = 200,
 	)
 
-	Insurance_Type_Name = models.ForeignKey(InsuranceType)
+	Microinsurance_Type_Name = models.ForeignKey(MicroinsuranceType)
 	underwriter_name = models.ForeignKey(UnderWriter)
-	Insurance_Base_Price = models.CharField(
-		max_length = 225, default = 0,
+	Microinsurance_Base_Price = models.CharField(
+		max_length = 100, default = 0,
 	)
-	Insurance_Price = models. CharField(
-		max_length = 225, default = 0,
+	Microinsurance_Price = models. CharField(
+		max_length = 100, default = 0,
 	)
 
 	Minimum_Age = models.IntegerField(default=0)
@@ -64,52 +82,37 @@ class Insurance(models.Model):
 	Date_Effective_Start = models.DateTimeField(default = datetime.datetime.now())
 	Date_Effective_End = models.DateTimeField(default = datetime.datetime.now())
 
-class Discount(models.Model):
+	date_created = models.CharField(default = datetime.datetime.now, max_length = 26)
+	status = models.CharField(max_length=7, choices = status_choices, default='Active')
 
-	Discount_Name = models.CharField(max_length=225,)
-	Insurance_Name = models.ForeignKey(Insurance)
-	Percentage = models.IntegerField()
-	Date_Start = models.DateTimeField(default= datetime.datetime.now)
-	Date_End = models.DateTimeField(default=datetime.datetime.now)
+	class Meta:
+		verbose_name_plural = 'Microinsurance Offered'
 
-
-
+	def __str__(self):
+		return self.Mnsurance_Name
 
 
+class UserType(models.Model):
 
+	User_Type_Name = models.CharField(max_length=100,)
+	date_created = models.CharField(default = datetime.datetime.now, max_length = 26)
+	status = models.CharField(max_length=7, choices = status_choices, default='Active')
 
+	def __str__(self):
+		return self.User_Type_Name
 
+class UserAccess(models.Model):
 
-#class UserType(models.Model):
+	user = models.OneToOneField(User)
+	User_Type_Name = models.ForeignKey(UserType)
+	date_created = models.CharField(default = datetime.datetime.now, max_length = 26)
+	status = models.CharField(max_length=7, choices = status_choices)
 
-#	user_type = models.CharField(
-#		max_length = 225, unique = True, 
-#	)
+	class Meta:
+		verbose_name_plural='User Access'
 
-#	def __str__(self):
-#		return self.user_type
-
-#class SystemUser(models.Model):
-
-#	first_name = models.CharField(
-#		max_length = 225,
-#	)
-#	last_name = models.CharField(
-#		max_length = 225,
-#	)
-#	middle_name = models.CharField(
-#		max_length = 225, blank = True,
-#	)
-#	contact_no = models.CharField(
-#		max_length = 225,
-#	)
-
-#	user_type = models.ForeignKey(UserType, max_length = 200)
-#
-#	branch_name = models.ForeignKey(Branch, max_length = 200)
-
-#	def __str__(self):
-#		return '%s %s' % (self.first_name, self.last_name)
+	def __str__(self):
+		return self.user.first_name
 
 
 

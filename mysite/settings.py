@@ -103,3 +103,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = ''
+
+AUTH_PROFILE_MODULE = "mysite.UserProfile"
