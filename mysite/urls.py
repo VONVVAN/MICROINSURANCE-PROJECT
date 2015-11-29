@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from microinsurance.views import home_page
+from microinsurance.views import home_page, log_in, access_granted
 
 admin.autodiscover()
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'microinsurance.views.home_page', name='home'),
-
+    url(r'^login/', 'microinsurance.views.log_in', name ='login'),
+    url(r'^hello/', 'microinsurance.views.access_granted', name ='granted'),
 ]

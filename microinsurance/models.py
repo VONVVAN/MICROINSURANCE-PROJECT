@@ -7,11 +7,10 @@ status_choices = (
 	('I', 'Inactive'),
 )
 
-
 class Branch(models.Model):
 
 	branch_name = models.CharField(
-		max_length=100, primary_key = True,
+		max_length=100, unique = True,
 	)
 	date_created = models.CharField(default = datetime.datetime.now, max_length = 26)
 	status = models.CharField(max_length=7, choices = status_choices, default='Active')
@@ -25,7 +24,7 @@ class Branch(models.Model):
 class UnderWriter(models.Model):
 	
 	underwriter_name = models.CharField(
-		max_length = 100,
+		max_length = 100, unique = True,
 	)
 	underwriter_address = models.TextField()
 	
@@ -33,7 +32,7 @@ class UnderWriter(models.Model):
 		max_length = 100,
 	)
 	underwriter_contact_no = models.CharField(
-		max_length = 11,
+		max_length = 11, unique = True,
 	)
 	date_created = models.CharField(default = datetime.datetime.now, max_length = 26)
 	status = models.CharField(max_length=7, choices = status_choices, default='Active')
@@ -44,7 +43,7 @@ class UnderWriter(models.Model):
 class MicroinsuranceType(models.Model):
 
 	Microinsurance_Type_Name = models.CharField(
-		max_length = 100,
+		max_length = 100, unique = True,
 	)
 	date_created = models.CharField(default = datetime.datetime.now, max_length = 26)
 	status = models.CharField(max_length=7, choices = status_choices, default='Active')
@@ -55,10 +54,10 @@ class MicroinsuranceType(models.Model):
 class MicroinsuranceOffered(models.Model):
 
 	Microinsurance_Code = models.CharField(
-		max_length = 10,
+		max_length = 10, unique = True,
 	)
 	Microinsurance_Name = models.CharField(
-		max_length = 100,
+		max_length = 100, unique = True,
 	)
 	Microinsurance_Description = models.TextField(
 		max_length = 200,
@@ -94,7 +93,7 @@ class MicroinsuranceOffered(models.Model):
 
 class UserType(models.Model):
 
-	User_Type_Name = models.CharField(max_length=100,)
+	User_Type_Name = models.CharField(max_length=100, unique = True,)
 	date_created = models.CharField(default = datetime.datetime.now, max_length = 26)
 	status = models.CharField(max_length=7, choices = status_choices, default='Active')
 

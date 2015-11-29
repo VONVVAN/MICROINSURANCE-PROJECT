@@ -85,3 +85,33 @@ class MicroInsurance(StaticLiveServerTestCase):
 
 		button_save = self.browser.find_element_by_name('_save')	
 		button_save.click()
+
+	def test_can_insert_user_access(self):
+		self.can_access_admin_site()
+		useraccess_button = self.browser.find_element_by_link_text('User Access')
+		useraccess_button.click()
+
+		add_user_access = self.browser.find_element_by_link_text('Add user access')
+		add_user_access.click()
+
+		user_access_name = self.browser.find_element_by_id("id_user")
+		for option in user_access_name.find_elements_by_tag_name('option'):
+			if option.text=="admin":
+				option.click()
+				break
+
+		user_drop = self.browser.find_element_by_name("User_Type_Name")
+		for option in user_drop.find_elements_by_tag_name('option'):
+			if option.text=="Branch Manager":
+				option.click()
+				break
+
+		user_status = self.browser.find_element_by_id("id_status")
+		for option in user_status.find_elements_by_tag_name('option'):
+			if option.text=="Active":
+				option.click()
+				break
+
+
+		button_save = self.browser.find_element_by_name('_save')	
+		button_save.click()
