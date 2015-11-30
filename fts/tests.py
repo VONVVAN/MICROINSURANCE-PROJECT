@@ -111,7 +111,6 @@ class MicroInsurance(StaticLiveServerTestCase):
 			if option.text=="Active":
 				option.click()
 				break
-
-
+				
 		button_save = self.browser.find_element_by_name('_save')	
 		button_save.click()

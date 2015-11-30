@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'microinsurance.views.home_page', name='home'),
     url(r'^login/', 'microinsurance.views.log_in', name ='login'),
-    url(r'^hello/', 'microinsurance.views.access_granted', name ='granted'),
+ 	#url(r'^authenticate/', 'microinsurance.views.access_granted'),
+    url(r'^login1/', 'microinsurance.views.access_granted', name ='granted'),
 ]
