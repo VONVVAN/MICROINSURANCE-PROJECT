@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from microinsurance.views import home_page, log_in, access_granted
+from microinsurance.views import home_page, log_in, access_granted, save_insurance
 
 admin.autodiscover()
 
@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^login/', 'microinsurance.views.log_in', name ='login'),
  	#url(r'^authenticate/', 'microinsurance.views.access_granted'),
     url(r'^login1/', 'microinsurance.views.access_granted', name ='granted'),
+    url(r'^save/', 'microinsurance.views.save_insurance', name ='save'),
 ]

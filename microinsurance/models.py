@@ -13,7 +13,7 @@ class Branch(models.Model):
 	branch_name = models.CharField(
 		max_length=100, unique = True,
 		validators=[
-            validators.RegexValidator(r'^[\s\w.-][,]+$',
+            validators.RegexValidator(r'^[\s\w.-]+$',
                                       ('Enter a valid Branch Name. '
                                         'This value may contain only letters, numbers '
                                         'and /./-/_ characters.'), 'invalid'),
@@ -21,7 +21,6 @@ class Branch(models.Model):
 	)
 	date_created = models.CharField(default = datetime.datetime.now, max_length = 26)
 	status = models.CharField(max_length=7, choices = status_choices, default='Active')
-
 	class Meta:
 		verbose_name_plural = "Branches"
 
@@ -99,7 +98,7 @@ class MicroinsuranceOffered(models.Model):
 		max_length = 10, unique = True,
 	)
 	Microinsurance_Name = models.CharField(
-		max_length = 100, unique = True,
+		max_length = 100, unique = True, default='',
 		validators=[
             validators.RegexValidator(r'^[^\d]+$',
                                       ('Enter a valid Name. '
@@ -109,7 +108,7 @@ class MicroinsuranceOffered(models.Model):
 	Microinsurance_Description = models.TextField(
 		max_length = 200,
 		validators=[
-            validators.RegexValidator(r'^[\d\w.-]+$',
+            validators.RegexValidator(r'^[\s\d\w-]+$',
                                       ('Enter a valid Name. '
                                         'This value may contain only letters, numbers and ".-" characters'), 'invalid'),
         ],
@@ -170,7 +169,7 @@ class MicroinsuranceOffered(models.Model):
 		verbose_name_plural = 'Microinsurance Offered'
 
 	def __str__(self):
-		return self.Mnsurance_Name
+		return self.Microinsurance_Name
 
 
 class UserType(models.Model):
@@ -202,6 +201,39 @@ class UserAccess(models.Model):
 	def __str__(self):
 		return self.user.first_name
 
+class Applicant(models.Model):
 
+	first_name = models.CharField(
+		max_length = 100,  
+	)
 
+	last_name = models.CharField(
+		max_length = 100,
+	)
+	middle_name = models.CharField(
+		max_length = 100,
+	)
+	suffix = models.CharField(
+		max_length = 5,
+	)
+	birthdate = models.CharField(
+		max_length = 100,
+	)
+	contact_no =models.CharField(
+		max_length = 11, unique = True,
+	)
+	address = models.CharField(
+		max_length = 100,
+	)
+	microinsurance= models.CharField(
+		max_length = 100,
+	)
+	quantity = models.CharField(
+		max_length = 3,
+	)
+	policy_no = models.CharField(
+		max_length = 20, unique = True,
+	)
 
+	def __str__(self):
+		return self.last_name

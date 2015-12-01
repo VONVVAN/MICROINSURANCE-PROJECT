@@ -8,22 +8,18 @@ import datetime
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('microinsurance', '0032_auto_20151129_1026'),
+        ('microinsurance', '0001_initial'),
     ]
 
     operations = [
-        migrations.AlterModelOptions(
-            name='microinsuranceoffered',
-            options={'verbose_name_plural': 'Microinsurance Offered'},
-        ),
         migrations.AlterField(
             model_name='microinsuranceoffered',
             name='Date_Effective_End',
-            field=models.DateTimeField(default=datetime.datetime(2015, 11, 29, 10, 28, 24, 750211)),
+            field=models.DateTimeField(default=datetime.datetime(2015, 12, 1, 11, 43, 31, 524072)),
         ),
         migrations.AlterField(
             model_name='microinsuranceoffered',
             name='Date_Effective_Start',
-            field=models.DateTimeField(default=datetime.datetime(2015, 11, 29, 10, 28, 24, 750113)),
+            field=models.DateTimeField(default=datetime.datetime(2015, 12, 1, 11, 43, 31, 524013)),
         ),
     ]

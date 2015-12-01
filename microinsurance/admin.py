@@ -1,5 +1,5 @@
 from django.contrib import admin
-from microinsurance.models import Branch, UnderWriter, MicroinsuranceType, MicroinsuranceOffered, UserType, UserAccess
+from microinsurance.models import Branch, UnderWriter, MicroinsuranceType, MicroinsuranceOffered, UserType, UserAccess, Applicant
 from django.contrib.auth.models import Group, User
 from django.contrib.admin.actions import delete_selected
 
@@ -53,5 +53,6 @@ admin.site.register(UnderWriter, UnderWriterAdmin )
 admin.site.register(MicroinsuranceType, MicroinsuranceTypeAdmin)
 admin.site.register(MicroinsuranceOffered, MicroinsuranceOfferedAdmin)
 admin.site.unregister(Group)
+admin.site.register(Applicant)
 admin.site.register(UserAccess, UserAccessAdmin)
 admin.site.register(UserType, UserTypeAdmin)
