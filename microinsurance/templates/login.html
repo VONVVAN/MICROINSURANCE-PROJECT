@@ -22,17 +22,25 @@
           <h1 class="text-center">Vance MicroInsurance</h1>
       </div>
       <div class="modal-body">
-          <form action = "/login1/" method= "post" class="form col-md-12 center-block">
+          <form action = "/validation" method= "post" class="form col-md-12 center-block">
           {% csrf_token %}
             <div class="form-group">
-            <input type="text" name="username" value="{{ source.username }}" class="form-control input-lg" placeholder="Username">
+             {% if form.non_field_errors %}
+              <ul class='form-errors'>
+                  {% if form.errors %}
+                      <p style="color:red; font-size:15px">Invalid Username or Password</p>
+                  {% endif %}
+              </ul>
+            {% endif %}
+            {{ formlog.as_p }}
+            <!--<input type="text" name="username" value="{{ source.username }}" class="form-control input-lg" placeholder="Username">
             </div>
             <div class="form-group">
               <input type="password" name="password" class="form-control input-lg" value="{{ source.password }}" placeholder="Password">
-            </div>
+            </div> -->
             <div class="form-group">
            
-              <input type = "submit" value = "Sign In" class="btn btn-primary btn-lg btn-block"/>          
+              <input type = "submit" value = "Sign In" class="btn btn-primary btn-lg btn-block"/>   
              </div>
           </form>
       </div>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from microinsurance.models import Branch, UnderWriter, MicroinsuranceType, MicroinsuranceOffered, UserType, UserAccess, Applicant
+from microinsurance.models import Branch, UnderWriter, MicroinsuranceType, MicroinsuranceOffered, UserType, BranchAccess, Applicant, Transaction
 from django.contrib.auth.models import Group, User
 from django.contrib.admin.actions import delete_selected
 
@@ -36,7 +36,7 @@ class MicroinsuranceOfferedAdmin(admin.ModelAdmin):
 	ordering = ['Microinsurance_Name']
 	actions = [make_inactive]
 
-class UserAccessAdmin(admin.ModelAdmin):
+class BranchAccessAdmin(admin.ModelAdmin):
 	list_display = ['user', 'status']
 	ordering = ['user']
 	actions = [make_inactive]
@@ -54,5 +54,5 @@ admin.site.register(MicroinsuranceType, MicroinsuranceTypeAdmin)
 admin.site.register(MicroinsuranceOffered, MicroinsuranceOfferedAdmin)
 admin.site.unregister(Group)
 admin.site.register(Applicant)
-admin.site.register(UserAccess, UserAccessAdmin)
+admin.site.register(BranchAccess, BranchAccessAdmin)
 admin.site.register(UserType, UserTypeAdmin)

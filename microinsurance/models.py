@@ -8,6 +8,22 @@ status_choices = (
 	('I', 'Inactive'),
 )
 
+class UserType(models.Model):
+
+	User_Type_Name = models.CharField(max_length=100, unique = True,
+		validators=[
+            validators.RegexValidator(r'^[^\d]+$',
+                                      ('Enter a valid Name. '
+                                        'This value may contain only letters'), 'invalid'),
+        ],
+	)
+	
+	date_created = models.CharField(default = datetime.datetime.now, max_length = 26)
+	status = models.CharField(max_length=7, choices = status_choices, default='Active')
+
+	def __str__(self):
+		return self.User_Type_Name
+
 class Branch(models.Model):
 
 	branch_name = models.CharField(
@@ -19,6 +35,9 @@ class Branch(models.Model):
                                         'and /./-/_ characters.'), 'invalid'),
         ],
 	)
+	#branch_manager = models.ForeignKey(UserAccess)
+	#front_liner = models.ForeignKey(UserAccess)
+
 	date_created = models.CharField(default = datetime.datetime.now, max_length = 26)
 	status = models.CharField(max_length=7, choices = status_choices, default='Active')
 	class Meta:
@@ -26,6 +45,20 @@ class Branch(models.Model):
 
 	def __str__(self):
 		return self.branch_name
+
+class BranchAccess(models.Model):
+
+	user = models.OneToOneField(User)
+	User_Type_Name = models.ForeignKey(UserType)
+	branch_name = models.ForeignKey(Branch)
+	date_created = models.CharField(default = datetime.datetime.now, max_length = 26)
+	status = models.CharField(max_length=7, choices = status_choices)
+
+	class Meta:
+		verbose_name_plural='Branch Access'
+
+	def __str__(self):
+		return self.user.first_name
 
 class UnderWriter(models.Model):
 	
@@ -171,36 +204,6 @@ class MicroinsuranceOffered(models.Model):
 	def __str__(self):
 		return self.Microinsurance_Name
 
-
-class UserType(models.Model):
-
-	User_Type_Name = models.CharField(max_length=100, unique = True,
-		validators=[
-            validators.RegexValidator(r'^[^\d]+$',
-                                      ('Enter a valid Name. '
-                                        'This value may contain only letters'), 'invalid'),
-        ],
-	)
-	
-	date_created = models.CharField(default = datetime.datetime.now, max_length = 26)
-	status = models.CharField(max_length=7, choices = status_choices, default='Active')
-
-	def __str__(self):
-		return self.User_Type_Name
-
-class UserAccess(models.Model):
-
-	user = models.OneToOneField(User)
-	User_Type_Name = models.ForeignKey(UserType)
-	date_created = models.CharField(default = datetime.datetime.now, max_length = 26)
-	status = models.CharField(max_length=7, choices = status_choices)
-
-	class Meta:
-		verbose_name_plural='User Access'
-
-	def __str__(self):
-		return self.user.first_name
-
 class Applicant(models.Model):
 
 	first_name = models.CharField(
@@ -211,29 +214,53 @@ class Applicant(models.Model):
 		max_length = 100,
 	)
 	middle_name = models.CharField(
-		max_length = 100,
+		max_length = 100, blank= True
 	)
 	suffix = models.CharField(
-		max_length = 5,
+		max_length = 5, blank = True
 	)
 	birthdate = models.CharField(
 		max_length = 100,
 	)
 	contact_no =models.CharField(
-		max_length = 11, unique = True,
+		max_length = 11,
+		validators=[
+            validators.RegexValidator(r'^[0-9]+$',
+                                      ('Enter a valid Name. '
+                                        'This value may contain only letters'), 'invalid'),
+        ],
 	)
 	address = models.CharField(
 		max_length = 100,
 	)
-	microinsurance= models.CharField(
-		max_length = 100,
-	)
-	quantity = models.CharField(
-		max_length = 3,
-	)
-	policy_no = models.CharField(
-		max_length = 20, unique = True,
-	)
 
 	def __str__(self):
-		return self.last_name
+		return '%s %s' % (self.last_name, self.first_name)
+
+class Transaction(models.Model):
+
+	transfname = models.CharField(
+		max_length = 100, default =''
+	)
+	translname = models.CharField(
+		max_length =100, default=''
+	)
+	transcontactno = models.CharField(
+		max_length = 11, default ='0'
+	)
+	transmicro = models.CharField(
+		max_length = 100, default =''
+	)
+	quantity = models.CharField(
+		max_length = 3, default ='0'
+	)
+	policyno = models.CharField(
+		max_length =100, default =''
+	)
+	amount_paid = models.CharField(
+		max_length = 5, default = '0'
+	)
+
+	transdate = models.CharField(
+		max_length = 50, default =''
+	)

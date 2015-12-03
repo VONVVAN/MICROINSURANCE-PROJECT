@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>Vance MicroInsurance Log-in</title>
+		<meta name="generator" content="Bootply" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+		<!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+    <link rel="stylesheet" href="/static/css/animate.min.css" type="text/css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/creative.css" type="text/css">
+		<link href="/static/css/styles.css" rel="stylesheet">
+
+    <script type="text/javascript">
+
+        $("#mytable tr").click(function(){
+       $(this).addClass('selected').siblings().removeClass('selected');    
+       var value=$(this).find('td:first').html();
+       alert(value);    
+    });
+
+    $('.ok').on('click', function(e){
+        alert($("#mytable tr.selected td:first").html());
+    });
+
+    function Clear()
+    {    
+       document.getElementById("firstname").value= "";
+       document.getElementById("lastname").value= "";
+       document.getElementById("middlename").value= "";
+       document.getElementById("suffix").value= "";
+       document.getElementById("birthday").value= "";
+       document.getElementById("contactno").value= "";
+       document.getElementById("address").value= "";
+       document.getElementById("quantity").value= "";
+       document.getElementById("policyno").value= "";
+    }
+
+    var datefield=document.createElement("input")
+    datefield.setAttribute("type", "date")
+    if (datefield.type!="date"){ //if browser doesn't support input type="date", load files for jQuery UI Date Picker
+        document.write('<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />\n')
+        document.write('<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"><\/script>\n')
+        document.write('<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"><\/script>\n') 
+        }
+    </script>
+     
+    <script>
+    if (datefield.type!="date"){ //if browser doesn't support input type="date", initialize date picker widget:
+        jQuery(function($){ //on document.ready
+            $('#birthday').datepicker();
+        })
+    }
+    </script>
+
+	</head>
+	<body background = "/static/img/insurance2.jpg" style="background-size:100%" >
+<!--login modal-->
+ <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">VANCE MICROINSURANCE - {{ branchname }}</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a>Welcome {{ name }}!</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/frontliner">New Applicant</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/oldapplicant">Old Applicant</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/">Logout</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+
+<br> <br>
+  <div class = "container-fluid" style ="background-color: rgba(0,0,0,.5); margin-top:10px">
+     
+      <div class ="row" style="margin-top:20px">
+      <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+          <p style ="font-weight:bold; color:white; font-size:30px">Registered Applicant</p>
+        </div>
+         <div class="col-lg-3">
+          <form action = "/searchapplicant" method= "post" class="form col-md-12 center-block">
+          {% csrf_token %}
+          <input type ="text" id ="searchcontact" name="searchcontact" placeholder = "Contact No" value = "{{ source.searchcontact }}"class="form-control" style = "width:320px">
+          </div>
+          <div class="col-lg-1">
+            <input type ="submit" class= "btn btn-primary" value ="Search">
+          </div>
+           </form>
+
+     <br><br><br><br>
+     <div class="row">
+       <div class="col-lg-5"></div>
+      <div class="col-lg-4">
+       <p style="color:red; font-size:15px">{{ error }}</p>
+       </div>
+       </div>
+      <form action = "/addinsurance" method= "post" class="form col-md-12 center-block">
+      <div class ="row" style ="margin-left:20px">
+      {% csrf_token %}
+        <div class="col-lg-3"></div>
+        <div class="col-lg-2">
+        <p style = "font-size:20px; color:white">First Name :</p>
+        </div>
+        <div class="col-lg-6">
+        <input type ="text" id ="firstname" name="firstname" placeholder = "{{ required }}" value = "{{ firstname }}" class="form-control" style = "width:350px">
+        </div>
+      </div>
+
+      <div class ="row" style ="margin-left:20px">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-2">
+        <p style = "font-size:20px; color:white">Last Name :</p>
+        </div>
+        <div class="col-lg-6">
+        <input type ="text" name="lastname" id = "lastname" placeholder = "{{ required }}" value = "{{ lastname }}" class="form-control" style = "width:350px">
+        </div>
+      </div>
+
+       <div class ="row" style ="margin-left:20px">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-2">
+        <p style = "font-size:20px; color:white">Contact No. :</p>
+        </div>
+        <div class="col-lg-6">
+        <input type ="text" name="contactno" id = "contactno" placeholder = "{{ required }}" value = "{{ contactno }}" class="form-control" style = "width:350px">
+        </div>
+      </div>
+
+      <div class ="row" style ="margin-left:20px; margin-top:20px">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-2">
+        <p style = "font-size:20px; color:white">Microinsurance :</p>
+        </div>
+        <div class="col-lg-3">
+         {% block table %}
+            <select id="id_microinsurance" name="microinsurance" value = "{{ source.microinsurance }}">
+              {% for item in category_list %}
+                <option> {{ item }}</option>
+              {% endfor %}
+            </select>
+          {% endblock %}
+        </div>
+      </div>
+
+      <div class ="row" style ="margin-left:20px">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-2">
+        <p style = "font-size:20px; color:white">Quantity. :</p>
+        </div>
+        <div class="col-lg-6">
+        <input type ="text" id= "quantity" placeholder = "{{ required }}" value="{{ source.quantity }}" name="quantity" class="form-control" style = "width:350px">
+        </div>
+      </div>   
+
+      <div class ="row" style ="margin-left:20px">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-2">
+        <p style = "font-size:20px; color:white">Policy No. :</p>
+        </div>
+        <div class="col-lg-6">
+        <input type ="text" id ="policyno"  placeholder = "{{ required }}" name="policyno" value="{{ source.policyno }}" class="form-control" style = "width:350px">
+        </div>
+      </div>   
+
+      <div class ="row" style ="margin-left:20px; margin-top:10px">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-2">
+        </div>
+        <div class="col-lg-1">
+        <input type ="submit" class="btn btn-primary" value ="Save">
+        </div>
+       </form>
+        <div class="col-lg-1" style="margin-left:-25px">
+        <input type ="submit" class="btn btn-danger" onclick="Clear();" value ="Cancel">
+        </div>
+        <br> <br> <br>  <br>  <br>
+        
+   
+  
+
+  </div>
+</div>
+<br>
+ <!-- script references -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+		 <script src="/static/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="/static/js/jquery.easing.min.js"></script>
+    <script src="/static/js/jquery.fittext.js"></script>
+    <script src="/static/js/wow.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/static/js/creative.js"></script>
+	</body>
+</html>
